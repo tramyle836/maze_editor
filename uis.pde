@@ -76,7 +76,7 @@ void mazefwCallback ( int value )
 
 void exportButton ()
 {
-  println("push!");
+//  println("push!");
   maze.refresh();
   save("file.png");
 

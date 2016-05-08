@@ -9,10 +9,16 @@
  *    input[type=checkbox],input[type=radio]{width: auto}textarea{height:5em}</style>
  */
 
+//korekara
+// auto centering maze
+// start and goal marker
+// generate mazes
+// export strictly
+// 
 
-//迷路の用意
+
+//maze setup
 Maze maze;
-
 String[][] menuItems;
 
 // dafault input values
@@ -26,17 +32,17 @@ int DfloorWidth = 30;
 
 int drawMode = 1;
 
+
+// export options
 String mazeName = "alpha";
 int madeDate = 160000;
 
 
 
-//public int mazex = 6;
-//public int mazey = 6;
-
 //迷路位置
 public int mazeoffset = 30;
-
+public int mazeoffsetx = 30;
+public int mazeoffsety = 30;
 
 
 void setup(){
@@ -49,16 +55,15 @@ void setup(){
 
 void draw(){
   maze.refresh();
-  
+
+  // draw maze
   if (keyPressed == true)  fill(0,80);
   else fill(200,80);
   ellipse(mouseX,mouseY,30,30);
-
-      
 }
 
 boolean RectOver( int x, int y, int w,int h){
-  //あるボタンの上にマウスが乗っているか返す
+  //mouseover on rect?
   if (mouseX >= x && mouseX <= x+w &&
     mouseY >= y && mouseY <= y+h) {
       return true;
@@ -70,33 +75,31 @@ boolean RectOver( int x, int y, int w,int h){
 
 
 void mouseDragged(){
-  
- //edit maze 
+ //edit maze
   if (keyPressed == true) maze.editMaze(0, mouseX, mouseY);
-  else maze.editMaze(1, mouseX, mouseY); 
+  else maze.editMaze(1, mouseX, mouseY);
 }
 
 
 
 void MazeSetup(int n,int m){
-  //目的　迷路の大きさnをもらって、2n+1サイズの壁配列と、nサイズの床配列を作成する
+  //aim get maze size n, make 2n + 1 wall Array and n floor Arr.
   maze = new Maze(n,m);
   maze.refresh();
 }
 
 
 class Maze{
-  //迷路クラス
 
-  //格子サイズ
+  //grid size
   int x;
   int y;
 
-  //各パーツの幅
+  //widths
   int wallwidth;
   int floorwidth;
 
-  //壁の様子
+  //wall var
   static final int WALL = 0;
   static final int FLOOR = 1;
 
@@ -104,7 +107,7 @@ class Maze{
 
 
   Maze(int x,int y, int ww, int fw){
-    //セルの初期化
+    //init cells
     this.x = x;
     this.y = y;
     this.cell = new int[2 * mazeCellsDefault + 1 ][2 * mazeCellsDefault + 1];
@@ -116,20 +119,19 @@ class Maze{
       }
     }
 
-  //パーツの幅を変更
+  //init widths
   this.wallwidth = ww;
   this.floorwidth = fw;
-  
+
   }
 
-  //迷路を描画する
+
   void refresh(){
-    
     //refresh All
     noStroke();
     fill(255);
     rect(0,0,width,height);
-    
+
     //draw maze
     int tmpw,tmph,posx,posy;
     tmpw = 0;
@@ -138,18 +140,18 @@ class Maze{
     posy = mazeoffset;
     for(int j = 0; j < 2 * y + 1 ; j++){
       for (int i = 0; i < 2 * x + 1 ; i++){
-        
+
         if (i == 1 && j == 2){println("beforerect"+ posx +"," + posy +","+ tmpw +","+ tmph);}
-        
-        //横壁判定
+
+        //val wakk
         if(j % 2 == 0) tmph = int(this.wallwidth);
         else tmph = int(this.floorwidth);
-        
-        //縦壁判定
+
+        //col wall
         if (i % 2 == 0) tmpw = int(this.wallwidth);
         else tmpw = int(this.floorwidth);
-        
-        //壁か床かその他か？
+
+        //wall? floor? other?
         if (cell[i][j] == WALL) fill(0);
         else noFill();
         if (i == 1 && j == 2){println("rect"+ posx +"," + posy +","+ tmpw +","+ tmph);}
@@ -161,11 +163,11 @@ class Maze{
     }
   }
 
-  //迷路を編集する
+
   void editMaze(int mousestate,float mouseX,float mouseY){
-    //セル番号を格納
+    //save cell num
     int numx,numy;
-    //マウスの座標を所得し、対応する位置の壁を書いたり消したりする
+    //get mousePos and return cellnum
     numx = cellNumber(mouseX);
     numy = cellNumber(mouseY);
 
@@ -180,24 +182,27 @@ class Maze{
 
   }
 
-  //ある座標値が、どのセル番号に位置するか返す関数
+  //get position return cellnumber
   int cellNumber(float pos){
     pos -= int(mazeoffset);
     int num;
     int t;
-    
+    int k; // atari hantei supporter
+
     int w = int(this.wallwidth);
     int f = int(this.floorwidth);
-    
+    if ( w < 5 ) k = int(5 - w);
+
     t =floor( pos  / (w + f));
 
-      if (pos > t * (w + f) + w)
+      if (pos > t * (w + f) + w + k)
         num = t * 2 + 1;
       else num = 2 * t ;
 
     return num;
   }
-  
+
+// UI options
   void xCallback(int value){
     this.x = value ;
   }
@@ -209,7 +214,7 @@ class Maze{
   }
   void fwCallback(int value){
     this.floorwidth = value ;
-  }  
-  
-  
+  }
+
+
 }
