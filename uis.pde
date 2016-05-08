@@ -1,7 +1,7 @@
 
-void uiSetup(){
+void uiSetup() {
 
-// set up UI items 
+  // set up UI items 
   menuItems = new String[] {
     new String[] {
       "ww001cebuMaze"
@@ -17,7 +17,6 @@ void uiSetup(){
       "ww000icecave"
     }
   };
-
 }
 
 /* interface related things */
@@ -43,9 +42,7 @@ void setController ( Controller ctlr )
   ctlr.setElementLabel( element, "floor width px" );
 
   InterfaceElement element = ctlr.addCheckbox("exportButton");
-  ctlr.setElementLabel( element, "export button" );  
- 
-  
+  ctlr.setElementLabel( element, "export button" );
 }
 
 
@@ -54,7 +51,6 @@ void mazexCallback ( int value )
 {
   maze.xCallback(value);
   Dmazex = value;
-
 }
 void mazeyCallback ( int value )
 {
@@ -63,8 +59,8 @@ void mazeyCallback ( int value )
 }
 void mazewwCallback ( int value )
 {
-   maze.wwCallback(value);
-   DwallWidth = value;
+  maze.wwCallback(value);
+  DwallWidth = value;
 }
 void mazefwCallback ( int value )
 {
@@ -76,10 +72,7 @@ void mazefwCallback ( int value )
 
 void exportButton ()
 {
-//  println("push!");
-  maze.refresh();
-  save("file.png");
-
+  maze.exportx3();
 }
 
 

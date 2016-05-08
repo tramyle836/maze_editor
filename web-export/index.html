@@ -37,7 +37,7 @@
 	}
 	#content { 
 		margin: 50px auto 0px auto; padding: 25px 25px 15px 25px;
-		width: 600px; min-width: 300px; overflow: auto;
+		width: 400px; min-width: 300px; overflow: auto;
 		border-left: 1px solid #444; border-top: 1px solid #444; 
 		border-right: 1px solid #333; border-bottom: 1px solid #333;
 		background-color: #3d3d3d;
@@ -58,7 +58,7 @@ function getProcessingSketchId () { return 'mazeeditor'; }
 		<div id="content">
 			<div>
 				<canvas id="mazeeditor" data-processing-sources="maze_editor.pde" 
-						width="600" height="600">
+						width="400" height="526">
 					<p>Your browser does not support the canvas tag.</p>
 					<!-- Note: you can put any alternative content here. -->
 				</canvas>
@@ -68,12 +68,17 @@ function getProcessingSketchId () { return 'mazeeditor'; }
 	    	</div>
 			<h1>maze_editor</h1>
     		<p id="description">drag to erase Wall <br />
-    press SPACE and drag to draw wall again <br />
+    press W and drag to draw wall again <br />
+     <br />
+    press S or G and drag to put Start or Goal <br />
+    press number... put an object! <br />
+     <br />
+    
     works by standard Processing. <br />
 
     <form id="form-form"><!-- empty --></form>
     <!-- the following css adds a tiny bit of layout -->
-    <style>textarea,input,label,select{display:block;width:95%}select{width:97.5%}
+    <style>textarea,input,label,select{display:block;width:50%}select{width:97.5%}
     input[type=checkbox],input[type=radio]{width: auto}textarea{height:5em}</style></p>
 			<p id="sources">Source code: <a href="maze_editor.pde">maze_editor</a> <a href="interface.js">interface.js</a> </p>
 			<p>
