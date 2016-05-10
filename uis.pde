@@ -4,10 +4,10 @@ void uiSetup() {
   // set up UI items 
   menuItems = new String[] {
     new String[] {
-      "ww001cebuMaze"
+      "ww002Maze_tez"
     }
     , new String[] {
-      "ww000breakwallMaze"
+      "ww006biriMaze"
     }
     , 
     new String[] {
@@ -79,6 +79,7 @@ void exportButton ()
 void theMenu ( String value )
 {
   currentMaze = int(value);
+  maze.changeMazeType(currentMaze);
 }
 
 /* ... and the interfaces */

@@ -15,7 +15,7 @@
  */
 
 //korekara TODO
-// *** auto centering maze
+// 
 // *** enable maze diffeernces
 // * generate mazes
 // 
@@ -48,7 +48,7 @@ static final int OBJ1 = 21;
 // export options
 String mazeName = "alpha";
 int madeDate = 160000;
-public PGraphics pg = createGraphics(1200, 1580);
+public PGraphics pg = createGraphics(2400, 3160);
 
 
 
@@ -57,8 +57,8 @@ void setup(){
   size(400, 526);
   frameRate(20);
   
-  startMark = loadShape("/svg/start.svg");
-  goalMark = loadShape("/svg/goal.svg");
+  startMark = loadShape("/svg/tedu/start.svg");
+  goalMark = loadShape("/svg/tedu/goal.svg");
   obj1 = loadShape("/svg/biribiri.svg");
   
   maze = new Maze(Dmazex,Dmazey,DwallWidth,DfloorWidth);
@@ -107,7 +107,7 @@ void mouseDragged(){
 
 void MazeSetup(int n,int m){
   //aim get maze size n, make 2n + 1 wall Array and n floor Arr.
-  maze = new Maze(n,m);
+ // maze = new Maze(n,m);
   maze.refresh();
 }
 
@@ -223,7 +223,7 @@ class Maze{
     //refresh All
     pg.noStroke();
     pg.fill(255);
-    pg.rect(0,0,width,height);
+    pg.rect(0,0,width * n,height * n);
     this.makeoffsets();
     
     //draw maze
@@ -286,7 +286,7 @@ class Maze{
   
     cell[numx][numy] = mousestate;
     refresh();
-    println("mouse is now "+ numx + "," + numy + "cell ,it becomes" + mousestate);
+   // println("mouse is now "+ numx + "," + numy + "cell ,it becomes" + mousestate);
 
         
 
@@ -294,21 +294,21 @@ class Maze{
   
   int cellNumberx(float pos){
     pos -= float(this.offsetx);
-    return cellNumber(float(pos));
+    return cellNumber(pos);
    
 
   }
   
   int cellNumbery(float pos){
     pos -= float(this.offsety);
-    return cellNumber(float(pos));
+    return cellNumber(pos);
   }
 
   //get position return cellnumber
   int cellNumber(float pos){ // **** koregahen
     int num;
     int t;
-    int k; // atari hantei supporter
+    int k = 0; // atari hantei supporter
 
     int w = this.wallwidth;
     int f = this.floorwidth;
@@ -343,9 +343,35 @@ class Maze{
   
   void exportx3(){ //for print
   pg.beginDraw(); 
-  maze.refreshpg(3,pg);
+  maze.refreshpg(6,pg);
   pg.endDraw(); 
   pg.save("file.png");
   }
-
+   
+  void changeMazeType(int mazeType){
+    switch (mazeType){
+    case 0: //tedukuri 
+        startMark = loadShape("/svg/tedu/start.svg");
+        goalMark = loadShape("/svg/tedu/goal.svg");
+        obj1 = loadShape("/svg/biribiri.svg");
+        break;
+        
+    case 1: //biribiri
+        startMark = loadShape("/svg/biri/start.svg");
+        goalMark = loadShape("/svg/biri/goal.svg");
+        obj1 = loadShape("/svg/biri/biribiri.svg");
+        break;
+    default:
+        startMark = loadShape("/svg/start.svg");
+        goalMark = loadShape("/svg/goal.svg");
+        obj1 = loadShape("/svg/biribiri.svg");
+    }
+    refresh();
+  
+  
+  }
+  
+  
+  
+  
 }
